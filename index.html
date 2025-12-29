@@ -136,9 +136,23 @@
 
             <!-- Preview Pane -->
             <div id="preview-pane" class="hidden border-l border-gray-700 bg-gray-100 flex-col z-20 absolute inset-0 md:static md:inset-auto" style="width: 50%;">
+                
+                <!-- Preview Header -->
                 <div class="h-10 bg-white border-b border-gray-300 flex items-center justify-between px-3 shrink-0">
-                    <span class="text-xs font-bold text-gray-500 uppercase">Browser Preview</span>
-                    <button onclick="app.togglePreview()" class="text-gray-400 hover:text-gray-600 md:hidden"><i class="fa-solid fa-xmark"></i></button>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-gray-500 uppercase">Browser Preview</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-3">
+                        <!-- Toggle Console Button -->
+                        <button onclick="app.toggleConsole()" id="btn-console-toggle" class="text-gray-500 hover:text-purple-600 text-xs font-bold uppercase flex items-center gap-1 transition-colors" title="Toggle Console">
+                            <i class="fa-solid fa-terminal"></i> <span class="hidden sm:inline">Console</span>
+                        </button>
+                        
+                        <button onclick="app.togglePreview()" class="text-gray-400 hover:text-gray-600 md:hidden" title="Close Preview">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="flex-1 relative bg-white">
@@ -146,11 +160,14 @@
                     <div id="iframe-overlay" class="absolute inset-0 z-40 hidden bg-transparent"></div>
                 </div>
 
-                <!-- Console -->
-                <div class="h-32 bg-gray-900 border-t border-gray-700 flex flex-col shrink-0">
-                    <div class="px-2 py-1 bg-gray-800 text-xs text-gray-400 font-mono border-b border-gray-700 flex justify-between">
-                        <span>Console Output</span>
-                        <button onclick="document.getElementById('console-output').innerHTML=''" class="hover:text-white" title="Clear Console"><i class="fa-solid fa-ban"></i></button>
+                <!-- Console (Hidden by default) -->
+                <div id="console-pane" class="h-48 bg-gray-900 border-t border-gray-700 flex-col shrink-0 hidden transition-all">
+                    <div class="px-2 py-1 bg-gray-800 text-xs text-gray-400 font-mono border-b border-gray-700 flex justify-between items-center">
+                        <span class="flex items-center gap-2"><i class="fa-solid fa-terminal"></i> Console Output</span>
+                        <div class="flex items-center gap-3">
+                            <button onclick="document.getElementById('console-output').innerHTML=''" class="hover:text-white transition-colors" title="Clear Console"><i class="fa-solid fa-ban"></i></button>
+                            <button onclick="app.toggleConsole()" class="hover:text-white transition-colors" title="Close Console"><i class="fa-solid fa-xmark"></i></button>
+                        </div>
                     </div>
                     <div id="console-output" class="flex-1 overflow-y-auto p-2 font-mono text-xs text-green-400 space-y-1 break-words whitespace-pre-wrap"></div>
                 </div>

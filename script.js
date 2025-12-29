@@ -1,4 +1,4 @@
-const STORE_KEY = 'cv_pro_final_v10';
+const STORE_KEY = 'cv_pro_final_v11';
 
 const LIBRARIES = [
     { name: 'Tailwind CSS', url: 'https://cdn.tailwindcss.com', type: 'js', icon: 'fa-css3 text-cyan-400' },
@@ -70,6 +70,22 @@ class CodeVault {
         } else {
             sidebar.classList.add('-translate-x-full');
             backdrop.classList.add('hidden');
+        }
+    }
+
+    // --- Console Toggle ---
+    toggleConsole() {
+        const consolePane = document.getElementById('console-pane');
+        const btn = document.getElementById('btn-console-toggle');
+        
+        if (consolePane.classList.contains('hidden')) {
+            consolePane.classList.remove('hidden');
+            consolePane.classList.add('flex');
+            if(btn) btn.classList.replace('text-gray-500', 'text-purple-500');
+        } else {
+            consolePane.classList.add('hidden');
+            consolePane.classList.remove('flex');
+            if(btn) btn.classList.replace('text-purple-500', 'text-gray-500');
         }
     }
 
@@ -379,6 +395,7 @@ class CodeVault {
         this.files[newName] = this.files[oldName];
         delete this.files[oldName];
         
+        // Update mode
         let mode = 'javascript';
         if(newName.endsWith('.html')) mode = 'htmlmixed';
         else if(newName.endsWith('.css')) mode = 'css';
